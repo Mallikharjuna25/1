@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h3>Object Data Display</h3>
+<p id="output"></p>
+
+<script>
+let person = { name: "Ravi", age: 22, city: "Vizag" };
+let result = "";
+
+// for-in (object)
+result += "<b>For-in:</b><br>";
+for (let key in person) {
+    result += key + " : " + person[key] + "<br>";
+}
+for(let key in persons){
+  result+= key+ person[key]
+}
+// Convert to array (simple way)
+let arr = [person.name, person.age, person.city];
+arr.forEach(function(val){
+  result += val;
+});
+for(let val of arr){
+
+}
+// forEach
+result += "<br><b>forEach:</b><br>";
+arr.forEach(function(val) {
+    result += val + "<br>";
+});
+let pat=/^[\w-],@[a-z\d-],\.[a-z]{2,}$;
+for(let key in persons)
+arr.forEach(function(val){
+
+})
+for(let val of arr)
+body{
+  margin:0;
+  
+}
+// for-of
+result += "<br><b>For-of:</b><br>";
+for (let val of arr) {
+    result += val + "<br>";
+}
+
+document.getElementById("output").innerHTML = result;
+</script>
+
+</body>
+</html>

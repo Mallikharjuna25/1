@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weather App</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #4facfe, #00f2fe);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .container {
+        background: white;
+        padding: 25px;
+        border-radius: 15px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        width: 300px;
+    }
+
+    input {
+        padding: 10px;
+        width: 70%;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        outline: none;
+    }
+
+    button {
+        padding: 10px;
+        border: none;
+        background: #007bff;
+        color: white;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #0056b3;
+    }
+
+    .result {
+        margin-top: 15px;
+        font-size: 16px;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>🌦️ Weather App</h2>
+
+    <input type="text" id="city" placeholder="Enter city name">
+    <button onclick="getWeather()">Search</button>
+
+    <div class="result" id="output"></div>
+</div>
+
+<script>
+async function getWeather() {
+    let city = document.getElementById("city").value;
+    let output = document.getElementById("output");
+
+    if (city.trim() === "") {
+        output.innerHTML = "Please enter a city name";
+        return;
+    }
+
+    let apiKey = "8f12ac1ce84675f5b05b456dd2bfdaa8";
+
+    try {
+        let res = await fetch(
+            `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
+        );
+
+        let data = await res.json();
+
+        if (data.cod === "404") {
+            output.innerHTML = "City not found";
+            return;
+        }
+
+        output.innerHTML = `
+            <b>City:</b> ${data.name} <br>
+            <b>Temperature:</b> ${data.main.temp}°C <br>
+            <b>Weather:</b> ${data.weather[0].description} <br>
+            <b>Humidity:</b> ${data.main.humidity}% <br>
+            <b>Wind Speed:</b> ${data.wind.speed} m/s
+        `;
+    } catch (error) {
+        output.innerHTML = "Error fetching data";
+    }
+}
+</script>
+
+</body>
+</html>
